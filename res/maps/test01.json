@@ -1,0 +1,136 @@
+{
+    "name": "application-name",
+    "version": "0.0.1",
+    "backgroundObjects": [],
+    "cubeSize": 1,
+    "elements": [
+        [
+            [
+                {
+                    "id": 0,
+                    "type": "cuboid",
+                    "specials": [],
+                    "color": "#ffffff",
+                    "position": {
+                        "x" : 0,
+                        "y" : 0,
+                        "z" : 0
+                    },
+                    "neighbours": [
+
+                    ]
+                },
+                {
+                    "id": 1,
+                    "type": "cuboid",
+                    "specials": [],
+                    "color": "#00ff00",
+                    "position": {
+                        "x" : 0,
+                        "y" : 1,
+                        "z" : 0
+                    },
+                    "neighbours": [
+                        {
+                            "fromFace": "top",
+                            "toCube": 1,
+                            "keys": 37
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "id": 2,
+                    "type": "cuboid",
+                    "specials": [],
+                    "color": "#0000ff",
+                    "position": {
+                        "x" : 1,
+                        "y" : 0,
+                        "z" : 0
+                    },
+                    "neighbours": [
+
+                    ]
+                },
+                {
+                    "id": 3,
+                    "type": "cuboid",
+                    "specials": [],
+                    "color": "#ff0000",
+                    "position": {
+                        "x" : 1,
+                        "y" : 1,
+                        "z" : 0
+                    },
+                    "neighbours": [
+
+                    ]
+                }
+            ]
+        ],
+        [
+            [
+                {
+                    "id": 4,
+                    "type": "cuboid",
+                    "specials": [],
+                    "color": "#f0000f",
+                    "position": {
+                        "x" : 0,
+                        "y" : 0,
+                        "z" : 1
+                    },
+                    "neighbours": [
+
+                    ]
+                },
+                {
+                    "id": 5,
+                    "type": "cuboid",
+                    "specials": [],
+                    "color": "#55ff55",
+                    "position": {
+                        "x" : 0,
+                        "y" : 1,
+                        "z" : 1
+                    },
+                    "neighbours": [
+
+                    ]
+                }
+            ],
+            [
+                {
+                    "id": 6,
+                    "type": "cuboid",
+                    "specials": [],
+                    "color": "#880000",
+                    "position": {
+                        "x" : 1,
+                        "y" : 0,
+                        "z" : 1
+                    },
+                    "neighbours": [
+
+                    ]
+                },
+                {
+                    "id": 7,
+                    "type": "cuboid",
+                    "specials": [],
+                    "color": "#44aa22",
+                    "position": {
+                        "x" : 1,
+                        "y" : 1,
+                        "z" : 1
+                    },
+                    "neighbours": [
+
+                    ]
+                }
+            ]
+        ]
+    ]
+}

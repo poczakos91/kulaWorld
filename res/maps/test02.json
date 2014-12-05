@@ -1,0 +1,173 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "backgroundObjects": [],
+  "cubeSize": 1,
+  "elements": [
+    [
+      [
+        {
+          "id": 0,
+          "type": "cuboid",
+          "specials": [],
+          "color": "#0000ff",
+          "position": {
+            "x" : 0,
+            "y" : 0,
+            "z" : 0
+          },
+          "neighbours": [
+
+          ]
+        },
+        {
+
+        },
+        {
+
+        },
+        {
+
+        }
+      ],
+      [
+        {
+          "id": 1,
+          "type": "cuboid",
+          "specials": [],
+          "color": "#f0000f",
+          "position": {
+            "x" : 1,
+            "y" : 0,
+            "z" : 0
+          },
+          "neighbours": [
+
+          ]
+        },
+        {
+          "id": 2,
+          "type": "cuboid",
+          "specials": [],
+          "color": "#f0000f",
+          "position": {
+            "x" : 1,
+            "y" : 1,
+            "z" : 0
+          },
+          "neighbours": [
+
+          ]
+        },
+        {
+          "id": 3,
+          "type": "cuboid",
+          "specials": [],
+          "color": "#f0000f",
+          "position": {
+            "x" : 1,
+            "y" : 2,
+            "z" : 0
+          },
+          "neighbours": [
+
+          ]
+        },
+        {
+          "id": 4,
+          "type": "cuboid",
+          "specials": [],
+          "color": "#f0000f",
+          "position": {
+            "x" : 1,
+            "y" : 3,
+            "z" : 0
+          },
+          "neighbours": [
+
+          ]
+        }
+      ],
+      [
+        {
+          "id": 5,
+          "type": "cuboid",
+          "specials": [],
+          "color": "#f0000f",
+          "position": {
+            "x" : 2,
+            "y" : 0,
+            "z" : 0
+          },
+          "neighbours": [
+
+          ]
+        },
+        {
+
+        },
+        {
+
+        },
+        {
+
+        }
+      ]
+    ],
+    [
+      [
+        {
+
+        },
+        {
+
+        },
+        {
+
+        },
+        {
+
+        }
+      ],
+      [
+        {
+          "id": 6,
+          "type": "cuboid",
+          "specials": [],
+          "color": "#f0000f",
+          "position": {
+            "x" : 1,
+            "y" : 0,
+            "z" : 1
+          },
+          "neighbours": [
+
+          ]
+        },
+        {
+
+        },
+        {
+
+        },
+        {
+
+        }
+      ],
+      [
+        {
+
+        },
+        {
+
+        },
+        {
+
+        },
+        {
+
+        }
+      ]
+    ]
+  ]
+}
