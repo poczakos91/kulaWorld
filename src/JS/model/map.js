@@ -8,7 +8,6 @@ kw.Map = function() {
 };
 
 kw.Map.prototype.generateModel = function(rawMap) {
-    console.log(rawMap);
     for(var i=0;i<rawMap.elements.length;i++) {
         for(var j=0;j<rawMap.elements[i].length;j++) {
             for(var k=0;k<rawMap.elements[i][j].length;k++) {
@@ -23,6 +22,9 @@ kw.Map.prototype.generateModel = function(rawMap) {
     }
     this.view.appendChildrenFromModels(this.cubeModells);
     this.view.setOffset(new THREE.Vector3(0,0,0));
+
+    this.direction = new kw.MainDirection(rawMap.startingDirection,rawMap.startingFace);
+    this.ball = new kw.Ball(rawMap.startingCube,rawMap.startingFace,this.direction,this,"#002366");
 };
 
 kw.Map.prototype.getView = function() {

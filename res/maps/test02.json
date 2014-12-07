@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "backgroundObjects": [],
   "cubeSize": 1,
+  "startingCube": 0,
+  "startingFace": "top",
+  "startingDirection": "forward",
   "elements": [
     [
       [
@@ -10,14 +13,97 @@
           "id": 0,
           "type": "cuboid",
           "specials": [],
-          "color": "#0000ff",
+          "color": "#ffffff",
           "position": {
             "x" : 0,
             "y" : 0,
             "z" : 0
           },
           "neighbours": [
-
+            {
+              "fromFace": "top",
+              "toCube": 2,
+              "toFace": "right",
+              "requiredDirection": "left",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "top",
+              "toCube": 0,
+              "toFace": "right",
+              "requiredDirection": "right",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "right",
+              "toCube": 0,
+              "toFace": "top",
+              "requiredDirection": "up",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "right",
+              "toCube": 0,
+              "toFace": "rear",
+              "requiredDirection": "backward",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "right",
+              "toCube": 0,
+              "toFace": "bottom",
+              "requiredDirection": "down",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "right",
+              "toCube": 0,
+              "toFace": "front",
+              "requiredDirection": "forward",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "front",
+              "toCube": 2,
+              "toFace": "front",
+              "requiredDirection": "left",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "front",
+              "toCube": 0,
+              "toFace": "right",
+              "requiredDirection": "right",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "bottom",
+              "toCube": 0,
+              "toFace": "right",
+              "requiredDirection": "right",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "bottom",
+              "toCube": 2,
+              "toFace": "bottom",
+              "requiredDirection": "left",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "rear",
+              "toCube": 0,
+              "toFace": "right",
+              "requiredDirection": "right",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "rear",
+              "toCube": 2,
+              "toFace": "rear",
+              "requiredDirection": "left",
+              "requiredKeys": []
+            }
           ]
         },
         {
@@ -42,7 +128,48 @@
             "z" : 0
           },
           "neighbours": [
-
+            {
+              "fromFace": "rear",
+              "toCube": 0,
+              "toFace": "rear",
+              "requiredDirection": "right",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "rear",
+              "toCube": 2,
+              "toFace": "rear",
+              "requiredDirection": "up",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "rear",
+              "toCube": 5,
+              "toFace": "rear",
+              "requiredDirection": "left",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "bottom",
+              "toCube": 0,
+              "toFace": "bottom",
+              "requiredDirection": "right",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "bottom",
+              "toCube": 5,
+              "toFace": "bottom",
+              "requiredDirection": "left",
+              "requiredKeys": []
+            },
+            {
+              "fromFace": "bottom",
+              "toCube": 6,
+              "toFace": "bottom",
+              "requiredDirection": "forward",
+              "requiredKeys": []
+            }
           ]
         },
         {
@@ -93,7 +220,7 @@
           "id": 5,
           "type": "cuboid",
           "specials": [],
-          "color": "#f0000f",
+          "color": "#00006f",
           "position": {
             "x" : 2,
             "y" : 0,
