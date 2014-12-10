@@ -17,8 +17,6 @@ kw.init = function() {
     kw.renderer.shadowMapEnabled = true;
 
 
-    kw.cameraHandler = kw.cameraFactory();
-
 
 
     //***********************************CREATING LIGHTSOURCES*******************************//NEEDS REFACTORING
@@ -40,18 +38,6 @@ kw.init = function() {
 
 
 
-
-
-
-
-
-    var geom = new THREE.SphereGeometry(0.3,30,30);
-    var material = new THREE.MeshPhongMaterial({"color": "#22aa44"});
-    var sphere = new THREE.Mesh(geom,material);
-    sphere.position.z = -0.8;
-    kw.scene.add(sphere);
-
-
     kw.initBackground(kw.scene);
 
     // add the output of the renderer to the html element
@@ -65,12 +51,15 @@ kw.init = function() {
 
     //*********************************CREATING A MAP OBJECT***************************************//
     kw.map = new kw.Map();
+
     //*****************************************LOADING A MAP*************************************//mapLoader.js
     kw.MapLoader.loadMap("test02.json",kw.play);
-
 
 };
 
 kw.play = function() {
+    kw.cameraHandler = kw.cameraFactory(kw.map.ball.ballView,kw.map.direction);
+    kw.animationHandler = kw.createAnimationHandler(kw.map.ball.ballView,kw.map.direction);
     kw.renderLoop();
 };
+

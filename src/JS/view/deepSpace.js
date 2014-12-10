@@ -12,15 +12,14 @@ kw.initBackground = function(scene) {
 
     function createPlanet(geom,texture,opt_normalMap) {
         var planetTexture = THREE.ImageUtils.loadTexture(texture);
+        var planetMaterial;
         if(opt_normalMap) {
             var normalTexture = THREE.ImageUtils.loadTexture(opt_normalMap);
+            planetMaterial = new THREE.MeshPhongMaterial({map: planetTexture, bumpMap: normalTexture});
         }
-
-
-        var planetMaterial = new THREE.MeshPhongMaterial({map: planetTexture, bumpMap: normalTexture});
-
-        var wireFrameMat = new THREE.MeshBasicMaterial();
-        wireFrameMat.wireframe = true;
+        else {
+            planetMaterial = new THREE.MeshPhongMaterial({map: planetTexture});
+        }
 
         // create a multimaterial
         var mesh = THREE.SceneUtils.createMultiMaterialObject(geom, [planetMaterial]);

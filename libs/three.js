@@ -9687,7 +9687,7 @@ THREE.PerspectiveCamera.prototype.setLens = function ( focalLength, frameHeight 
 	this.fov = 2 * THREE.Math.radToDeg( Math.atan( frameHeight / ( focalLength * 2 ) ) );
 	this.updateProjectionMatrix();
 
-}
+};
 
 
 /**

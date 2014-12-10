@@ -1,6 +1,4 @@
-/**
- * Created by poczakos on 10/23/2014.
- */
+
 kw.renderLoop = function() {
     kw.simulate(kw.clock.getDelta());
     // render using requestAnimationFrame
@@ -10,7 +8,8 @@ kw.renderLoop = function() {
 
 kw.simulate = function(delta) {
     //kw.camera.rotateY(0.01);
-    kw.cameraHandler.trackballControl.update(delta);
+    kw.cameraHandler.updateCamera(delta);
+    kw.animationHandler.update(delta);
 };
 
 kw.endRenderLoop = function() {

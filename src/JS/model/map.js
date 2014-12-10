@@ -22,9 +22,8 @@ kw.Map.prototype.generateModel = function(rawMap) {
     }
     this.view.appendChildrenFromModels(this.cubeModells);
     this.view.setOffset(new THREE.Vector3(0,0,0));
-
-    this.direction = new kw.MainDirection(rawMap.startingDirection,rawMap.startingFace);
-    this.ball = new kw.Ball(rawMap.startingCube,rawMap.startingFace,this.direction,this,"#002366");
+    this.direction = new kw.MainDirection(rawMap.ball.startingDirection,rawMap.ball.startingFace);
+    this.ball = new kw.Ball(rawMap.ball.startingCube,rawMap.ball.startingFace,this.direction,this,rawMap.ball.color,rawMap.ball.texture);
 };
 
 kw.Map.prototype.getView = function() {

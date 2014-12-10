@@ -1,6 +1,10 @@
-kw.cameraFactory = function() {
+kw.cameraFactory = function(ballView0,direction0) {
     var that = {};
     var camera,trackballControl;
+
+    //save the parameters to variables
+    var ballView = ballView0;
+    var direction = direction0;
 
     //init camera
     camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 2000);
@@ -19,18 +23,35 @@ kw.cameraFactory = function() {
     trackballControl.maxDistance = 50;
     trackballControl.minDistance = 5;
 
-    //init firstperson control
-    //TODO init firstperson control
-
+    $("body").on("keydown", $.proxy(switchControl,this));
 
     that.camera = camera;
     that.trackballControl = trackballControl;
     that.switchControl = switchControl;
+    that.updateCamera = updateCamera;
 
     return that;
 
-    function switchControl() {
-        //TODO switching between trackballcontrol and firstpersoncontrol
+    function switchControl(e) {
+        switch(e.which) {
+            case 83:        //letter 's'
+                trackballControl.enabled = !trackballControl.enabled;
+                break;
+        }
+    }
+
+    function updateCamera(delta) {
+        if(trackballControl.enabled) {
+            trackballControl.update(delta);
+        }
+        else {
+            updateFirstPerson(delta);
+        }
+    }
+
+    function updateFirstPerson(delta) {
+        camera.position = ballView.position.clone().add(kw.tools.invertedFaceMap[kw.tools.getFaceFromVector(direction.direction)].clone().multiplyScalar(-3).add(kw.tools.invertedFaceMap[kw.tools.getFaceFromVector(direction.faceDirection)].clone().multiplyScalar(3)));
+        camera.lookAt(ballView.position)
     }
 
 };
