@@ -53,13 +53,16 @@ kw.init = function() {
     kw.map = new kw.Map();
 
     //*****************************************LOADING A MAP*************************************//mapLoader.js
-    kw.MapLoader.loadMap("test02.json",kw.play);
+    kw.cameraHandler = new kw.CameraHandler();
+    kw.MapLoader.loadMap("test03.json",kw.play);
 
 };
 
 kw.play = function() {
-    kw.cameraHandler = kw.cameraFactory(kw.map.ball.ballView,kw.map.direction);
-    kw.animationHandler = kw.createAnimationHandler(kw.map.ball.ballView,kw.map.direction);
+    kw.cameraHandler.addBallView(kw.map.ball.ballView);
+    //kw.cameraHandler = new kw.CameraHandler(kw.map.ball.ballView,kw.map.direction,kw.map.ball.actFace);
+    kw.keyHandler = new kw.KeyEventHandler(kw.map.ball);
+    //kw.ballAnimationHandler = new kw.AnimationHandler(kw.map.ball.ballView,kw.map.direction);//kw.createAnimationHandler(kw.map.ball.ballView,kw.map.direction);
     kw.renderLoop();
 };
 

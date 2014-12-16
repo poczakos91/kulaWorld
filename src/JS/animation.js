@@ -1,123 +1,158 @@
 
-kw.createAnimationHandler = function(ball0,direction0) {
-    var ballView = ball0;
-    var direction = direction0;
-    var from,to;
-    var moveAnimationActive = false;
-    var rotateAnimationActive = false;
-    var fullDistance = new THREE.Vector3(0,0,0);
-    var distance1 = new THREE.Vector3(0,0,0);
-    var distance2 = new THREE.Vector3(0,0,0);
-    var actualRotation = 0;
-    var rotationAngle = 0;
-    var breakPoint = new THREE.Vector3(0,0,0);
-    var enabledMovingToBreakpoint = false;
-    var weight = 0;
+kw.AnimationHandler = function(ball, direction) {
+    this.ballView = ball;
+    this.direction = direction;
+    this.from = new THREE.Vector3();
+    this.to = new THREE.Vector3();
+    this.breakPoint = new THREE.Vector3(0,0,0);
+    this.fullPath = new THREE.Vector3(0,0,0);
+    this.path1 = new THREE.Vector3(0,0,0);
+    this.path2 = new THREE.Vector3(0,0,0);
+    this.straightMoveAnimationActive = false;
+    this.moveAnimationActive = false;
+    this.rotateAnimationActive = false;
+    this.actualRotation = 0;
+    this.rotationAngle = 0;
+    this.enabledMovingToBreakpoint = false;
+    this.weight = 0;
+};
 
-    var that = {};
-    that.startMoveAnimation = startMoveAnimation;
-    that.startRotateAnimation = startRotateAnimation;
-    that.update = update;
-    that.isAnimationActive = isAnimationActive;
-    return that;
+kw.AnimationHandler.prototype.startMoveAnimation = function(from, to) {
+    this.from = from.clone();
+    this.to = to.clone();
 
-    function startMoveAnimation(from0, to0) {
-        from = from0.clone();
-        to = to0.clone();
-        fullDistance.subVectors(to,from);
-        var dirTemp = kw.tools.directionMap[direction.getActualDirection()].clone();
+    //if 2 dimensions of fromt and to equals than the move is straight, no need for breakpoint
+    var dimensionEqualityCounter = 0;
+    for(var i=0;i<3;i++) {
+        if(from.getComponent(i) == to.getComponent(i)) {
+            dimensionEqualityCounter++;
+        }
+    }
+    if(dimensionEqualityCounter == 2) {
+        this.fullPath.subVectors(to,from);
+        this.fullPath.pathLength = this.fullPath.length();
+        this.straightMoveAnimationActive = true;
+    }
+    else {
+        var dirTemp = kw.tools.directionMap[this.direction.getActualDirection()].clone();
         for(var i=0;i<3;i++) {
             if(dirTemp.getComponent(i) == 1 || dirTemp.getComponent(i) == -1) {
-                breakPoint.setComponent(i,to.getComponent(i));
+                this.breakPoint.setComponent(i,this.to.getComponent(i));
             }
             else {
-                breakPoint.setComponent(i,from.getComponent(i));
+                this.breakPoint.setComponent(i,this.from.getComponent(i));
             }
         }
-        distance1.subVectors(breakPoint,from);
-        distance2.subVectors(to,breakPoint);
+        this.path1.subVectors(this.breakPoint,this.from);
+        this.path2.subVectors(this.to,this.breakPoint);
+        this.path1.pathLength = this.path1.length();
+        this.path2.pathLength = this.path2.length();
 
-        actualRotation = 0;
-        weight = 0;
-        enabledMovingToBreakpoint = true;
-        moveAnimationActive = true;
+        this.enabledMovingToBreakpoint = true;
+        this.moveAnimationActive = true;
     }
+    this.actualRotation = 0;
+    this.weight = 0;
+};
 
-    function startRotateAnimation(angle) {
-        actualRotation = 0;
-        rotationAngle = angle;
-        rotateAnimationActive = true;
+kw.AnimationHandler.prototype.startRotateAnimation = function(angle) {
+    this.actualRotation = 0;
+    this.rotationAngle = angle;
+    this.rotateAnimationActive = true;
+};
+
+kw.AnimationHandler.prototype.update = function(delta) {
+    if(this.moveAnimationActive) {
+        this.updateMoveAnimation(delta);
     }
-
-    function update(delta) {
-        if(moveAnimationActive) {
-            updateMoveAnimation(delta);
-        }
-        if(rotateAnimationActive) {
-            updateRotateAnimation(delta);
-        }
+    if(this.rotateAnimationActive) {
+        this.updateRotateAnimation(delta);
     }
+    if(this.straightMoveAnimationActive) {
+        this.updateStraightMoveAnimation(delta);
+    }
+};
 
-    function updateMoveAnimation(delta) {
-        delta *=2;
-        if(distance1.length()<0.5 ) delta*=3;
-        if(enabledMovingToBreakpoint) {
-            if (weight + delta < 1) {
-                weight += delta;
-                ballView.position.setX((distance1.x * weight) + from.x);
-                ballView.position.setY((distance1.y * weight) + from.y);
-                ballView.position.setZ((distance1.z * weight) + from.z);
-                updateRollRotateAnimation(delta,distance1.length());
-            }
-            else {
-                ballView.position = breakPoint.clone();
-                enabledMovingToBreakpoint = false;
-                updateRollRotateAnimation(delta,distance1.length());
-                delta = weight + delta - 1;
-                weight = 0;
-            }
+kw.AnimationHandler.prototype.updateMoveAnimation = function(delta) {
+    delta *= 4;
+    if(this.path1.pathLength<0.5 ) delta*=3;
+    if(this.enabledMovingToBreakpoint) {
+        if (this.weight + delta < 1) {
+            this.weight += delta;
+            this.ballView.position.setX((this.path1.x * this.weight) + this.from.x);
+            this.ballView.position.setY((this.path1.y * this.weight) + this.from.y);
+            this.ballView.position.setZ((this.path1.z * this.weight) + this.from.z);
+            this.updateRollRotateAnimation(delta,this.path1.pathLength);
         }
         else {
-            if(weight+delta < 1 && distance2.length()>0.03) {
-                weight += delta;
-                ballView.position.setX((distance2.x*weight)+breakPoint.x);
-                ballView.position.setY((distance2.y*weight)+breakPoint.y);
-                ballView.position.setZ((distance2.z*weight)+breakPoint.z);
-                updateRollRotateAnimation(delta,distance2.length());
-            }
-            else {
-                ballView.position = to;
-                updateRollRotateAnimation(delta,distance2.length());
-                moveAnimationActive = false;
-            }
+            this.ballView.position = this.breakPoint.clone();
+            this.enabledMovingToBreakpoint = false;
+            this.updateRollRotateAnimation(this.weight+delta-1,this.path1.pathLength);
+            this.weight = 0;
         }
-
-
     }
-
-    function updateRotateAnimation(delta) {
-        var rotationDelta = rotationAngle*delta*2;
-        var q = new THREE.Quaternion();
-        if(Math.abs(rotationAngle) > Math.abs(actualRotation+rotationDelta)) {
-            q.setFromAxisAngle(direction.getBallRotationAxis(),rotationDelta);
-            ballView.quaternion.multiplyQuaternions(q,ballView.quaternion);
+    else {
+        if(this.weight+delta < 1 && this.path2.pathLength>0.03) {
+            this.weight += delta;
+            this.ballView.position.setX((this.path2.x*this.weight)+this.breakPoint.x);
+            this.ballView.position.setY((this.path2.y*this.weight)+this.breakPoint.y);
+            this.ballView.position.setZ((this.path2.z*this.weight)+this.breakPoint.z);
+            this.updateRollRotateAnimation(delta,this.path2.pathLength);
         }
         else {
-            rotationDelta = rotationAngle - actualRotation;
-            q.setFromAxisAngle(direction.getBallRotationAxis(),rotationDelta);
-            ballView.quaternion.multiplyQuaternions(q,ballView.quaternion);
-            rotateAnimationActive = false;
+            this.ballView.position = this.to.clone();
+            this.updateRollRotateAnimation(this.weight+delta-1,this.path2.pathLength);
+            this.moveAnimationActive = false;
+            kw.keyHandler.moveAnimationDone();
         }
-        actualRotation += rotationDelta;
     }
+};
 
-    function updateRollRotateAnimation(delta,length) {
-        var q = new THREE.Quaternion();
-        q.setFromAxisAngle(direction.getBallRollRotationAxis(),-length*2*delta);
-        ballView.quaternion.multiplyQuaternions(q,ballView.quaternion);
+kw.AnimationHandler.prototype.updateStraightMoveAnimation = function(delta) {
+    delta *= 4;
+    if(this.weight+delta < 1) {
+        this.weight += delta;
+        this.ballView.position.set(
+            this.from.x + this.weight * this.fullPath.x,
+            this.from.y + this.weight * this.fullPath.y,
+            this.from.z + this.weight * this.fullPath.z
+        );
+        this.updateRollRotateAnimation(delta,this.fullPath.pathLength);
     }
+    else {
+        this.updateRollRotateAnimation(this.weight+delta-1,this.fullPath.pathLength);
+        this.ballView.position.set(this.to.x,this.to.y,this.to.z);
+        this.straightMoveAnimationActive = false;
+        kw.keyHandler.moveAnimationDone();
+    }
+};
 
-    function isAnimationActive() {
-        return moveAnimationActive || rotateAnimationActive;
+kw.AnimationHandler.prototype.updateRotateAnimation = function(delta) {
+    var rotationDelta = this.rotationAngle*delta*2;
+    var q = new THREE.Quaternion();
+    if(Math.abs(this.rotationAngle) > Math.abs(this.actualRotation+rotationDelta)) {
+        q.setFromAxisAngle(this.direction.getBallRotationAxis(),rotationDelta);
+        this.ballView.quaternion.multiplyQuaternions(q,this.ballView.quaternion);
+        this.direction.rotateDirection(rotationDelta);
     }
+    else {
+        rotationDelta = this.rotationAngle - this.actualRotation;
+        q.setFromAxisAngle(this.direction.getBallRotationAxis(),rotationDelta);
+        this.ballView.quaternion.multiplyQuaternions(q,this.ballView.quaternion);
+        this.rotateAnimationActive = false;
+        this.direction.rotateDirection(rotationDelta);
+        this.direction.calculateRollRotationAxis();
+        kw.keyHandler.rotateAnimationDone();
+    }
+    this.actualRotation += rotationDelta;
+};
+
+kw.AnimationHandler.prototype.updateRollRotateAnimation = function(delta,length) {
+    var q = new THREE.Quaternion();
+    q.setFromAxisAngle(this.direction.getBallRollRotationAxis(),-length*2*delta);
+    this.ballView.quaternion.multiplyQuaternions(q,this.ballView.quaternion);
+};
+
+kw.AnimationHandler.prototype.isAnimationActive = function() {
+    return this.moveAnimationActive || this.rotateAnimationActive || this.straightMoveAnimationActive;
 };

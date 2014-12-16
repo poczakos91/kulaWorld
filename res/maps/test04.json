@@ -1,0 +1,251 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "backgroundObjects": [],
+  "cubeSize": 1,
+  "ball": {
+    "startingCube": 0,
+    "startingFace": "top",
+    "startingDirection": "forward",
+    "color": "#002366",
+    "texture": {
+      "colorMapURL": "res/img/BasketballColor.jpg"
+    }
+  },
+  "elements": [
+    [
+        [
+          {
+            "id": 0,
+            "type": "cuboid",
+            "specials": [],
+            "color": "#ffffff",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 1
+            },
+            "neighbours": [
+              {
+                "fromFace": "top",
+                "toCube": 1,
+                "toFace": "top",
+                "requiredDirection": "forward",
+                "requiredKeys": []
+              }
+            ]
+          },
+          {
+            "id": 1,
+            "type": "cuboid",
+            "specials": [],
+            "color": "#ffffff",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "neighbours": [
+              {
+                "fromFace": "top",
+                "toCube": 2,
+                "toFace": "top",
+                "requiredDirection": "forward",
+                "requiredKeys": []
+              },
+              {
+                "fromFace": "top",
+                "toCube": 0,
+                "toFace": "top",
+                "requiredDirection": "backward",
+                "requiredKeys": []
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "type": "cuboid",
+            "specials": [],
+            "color": "#ffffff",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 3
+            },
+            "neighbours": [
+              {
+                "fromFace": "top",
+                "toCube": 3,
+                "toFace": "top",
+                "requiredDirection": "forward",
+                "requiredKeys": []
+              },
+              {
+                "fromFace": "top",
+                "toCube": 1,
+                "toFace": "top",
+                "requiredDirection": "backward",
+                "requiredKeys": []
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "type": "cuboid",
+            "specials": [],
+            "color": "#ffffff",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 4
+            },
+            "neighbours": [
+              {
+                "fromFace": "top",
+                "toCube": 4,
+                "toFace": "top",
+                "requiredDirection": "forward",
+                "requiredKeys": []
+              },
+              {
+                "fromFace": "top",
+                "toCube": 2,
+                "toFace": "top",
+                "requiredDirection": "backward",
+                "requiredKeys": []
+              }
+            ]
+          },
+          {
+            "id": 4,
+            "type": "cuboid",
+            "specials": [],
+            "color": "#ffffff",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 5
+            },
+            "neighbours": [
+              {
+                "fromFace": "top",
+                "toCube": 5,
+                "toFace": "top",
+                "requiredDirection": "forward",
+                "requiredKeys": []
+              }
+            ,
+              {
+                "fromFace": "top",
+                "toCube": 3,
+                "toFace": "top",
+                "requiredDirection": "backward",
+                "requiredKeys": []
+              }
+            ]
+          },
+          {
+            "id": 5,
+            "type": "cuboid",
+            "specials": [],
+            "color": "#ffffff",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 6
+            },
+            "neighbours": [
+              {
+                "fromFace": "top",
+                "toCube": 6,
+                "toFace": "top",
+                "requiredDirection": "forward",
+                "requiredKeys": []
+              },
+              {
+                "fromFace": "top",
+                "toCube": 4,
+                "toFace": "top",
+                "requiredDirection": "backward",
+                "requiredKeys": []
+              }
+            ]
+          },
+          {
+            "id": 6,
+            "type": "cuboid",
+            "specials": [],
+            "color": "#ffffff",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 7
+            },
+            "neighbours": [
+              {
+                "fromFace": "top",
+                "toCube": 7,
+                "toFace": "top",
+                "requiredDirection": "forward",
+                "requiredKeys": []
+              },
+              {
+                "fromFace": "top",
+                "toCube": 5,
+                "toFace": "top",
+                "requiredDirection": "backward",
+                "requiredKeys": []
+              }
+            ]
+          },
+          {
+            "id": 7,
+            "type": "cuboid",
+            "specials": [],
+            "color": "#ffffff",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 8
+            },
+            "neighbours": [
+              {
+                "fromFace": "top",
+                "toCube": 8,
+                "toFace": "top",
+                "requiredDirection": "forward",
+                "requiredKeys": []
+              },
+              {
+                "fromFace": "top",
+                "toCube": 6,
+                "toFace": "top",
+                "requiredDirection": "backward",
+                "requiredKeys": []
+              }
+            ]
+          },
+          {
+            "id": 8,
+            "type": "cuboid",
+            "specials": [],
+            "color": "#ffffff",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 9
+            },
+            "neighbours": [
+              {
+                "fromFace": "top",
+                "toCube": 7,
+                "toFace": "top",
+                "requiredDirection": "backward",
+                "requiredKeys": []
+              }
+            ]
+          }
+        ]
+    ]
+  ]
+}
