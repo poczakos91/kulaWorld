@@ -70,7 +70,7 @@ kw.Map.prototype.checkWinnerPosition = function () {
             font: "helvetiker"
         };
         var geom = new THREE.TextGeometry("You win", options);
-        var mat = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0xff5555, shininess: 100, metal: true});
+        var mat = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0x33bb33, shininess: 100, metal: true});
         var plane = THREE.SceneUtils.createMultiMaterialObject(geom, [mat]);
         plane.position.set(4,0.6,3);
         plane.rotation.y = Math.PI;
