@@ -65,7 +65,9 @@ kw.KeyEventHandler.prototype.listenKeyUps = function(e) {
 
 kw.KeyEventHandler.prototype.moveAnimationDone = function() {
     if(this.pushedKeys.forward) {
+        //console.log("******************************keyEventHandler triggered********************************");
         this.ball.move();
+        //console.log("WAS THERE 'NEW MOVE STARTED'?");
     }
     else if(this.pushedKeys.left) {
 

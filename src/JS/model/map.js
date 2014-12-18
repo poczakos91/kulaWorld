@@ -21,21 +21,22 @@ kw.Map.prototype.generateModel = function(rawMap) {
         }
     }
 
+    this.winTextOrientation = rawMap.messageorientation;
 
     this.target = this.getCubeById(rawMap.target.id);
     this.target.winnerFace = rawMap.target.face;
     var planeGeometry = new THREE.PlaneGeometry(1,1);
     var planeMaterial = new THREE.MeshBasicMaterial({color: 0x00aa00});
     planeMaterial.side = THREE.DoubleSide;
-    var plane = new THREE.Mesh(planeGeometry,planeMaterial);
-    plane.position = this.target.position.clone().add(kw.tools.invertedFaceMap[rawMap.target.face].clone().multiplyScalar(this.target.view.originalSize / 2 + 0.001));
+    kw.plane = new THREE.Mesh(planeGeometry,planeMaterial);
+    kw.plane.position = this.target.position.clone().add(kw.tools.invertedFaceMap[rawMap.target.face].clone().multiplyScalar(this.target.view.originalSize / 2 + 0.001));
     if(rawMap.target.face === "top" || rawMap.target.face === "bottom") {
-        plane.rotation.x = Math.PI/2;
+        kw.plane.rotation.x = Math.PI/2;
     }
     if(rawMap.target.face === "left" || rawMap.target.face === "right") {
-        plane.rotation.y = Math.PI/2;
+        kw.plane.rotation.y = Math.PI/2;
     }
-    kw.scene.add(plane);
+    kw.scene.add(kw.plane);
 
 
     this.view.appendChildrenFromModels(this.cubeModells);
@@ -59,9 +60,8 @@ kw.Map.prototype.getCubeById = function(id) {
 
 kw.Map.prototype.checkWinnerPosition = function () {
     if(this.ball.actCube.id == this.target.id && this.ball.actFace === this.target.winnerFace) {
-        //TODO win
         var options = {
-            size: 1,
+            size: this.winTextOrientation.size,
             height: 0.2,
             weight: "normal",
             bevelEnabled: false,
@@ -71,12 +71,14 @@ kw.Map.prototype.checkWinnerPosition = function () {
         };
         var geom = new THREE.TextGeometry("You win", options);
         var mat = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0x33bb33, shininess: 100, metal: true});
-        var plane = THREE.SceneUtils.createMultiMaterialObject(geom, [mat]);
-        plane.position.set(4,0.6,3);
-        plane.rotation.y = Math.PI;
+        kw.youWin = THREE.SceneUtils.createMultiMaterialObject(geom, [mat]);
+        kw.youWin.position.set(this.winTextOrientation.position.x,this.winTextOrientation.position.y,this.winTextOrientation.position.z);
+        //plane.rotation.y = Math.PI;
+        kw.youWin.rotation.set(this.winTextOrientation.rotation.x*Math.PI,this.winTextOrientation.rotation.y*Math.PI,this.winTextOrientation.rotation.z*Math.PI);
         kw.cameraHandler.changeToTrackBallControl(new THREE.Vector3(-2,3,-10));
-        kw.scene.add(plane);
+        kw.scene.add(kw.youWin);
         $("body").off();
+        $("body").on("keydown",kw.restart);
         return false;
     }
     else {

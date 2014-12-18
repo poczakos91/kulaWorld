@@ -54,7 +54,9 @@ kw.init = function() {
 
     //*****************************************LOADING A MAP*************************************//mapLoader.js
     kw.cameraHandler = new kw.CameraHandler();
-    kw.MapLoader.loadMap("test03.json",kw.play);
+
+    kw.levelCounter = 1;
+    kw.MapLoader.loadMap("test0"+kw.levelCounter+".json",kw.play);
 
 };
 
@@ -66,3 +68,25 @@ kw.play = function() {
     kw.renderLoop();
 };
 
+kw.restart = function(e) {
+    if(e.which == 13) {
+        $("body").off();
+        kw.endRenderLoop();
+
+        kw.scene.remove(kw.map.ball.ballView);
+        kw.scene.remove(kw.plane);
+        kw.scene.remove(kw.youWin);
+        kw.scene.remove(kw.map.view);
+
+        kw.levelCounter++;
+
+        kw.animationFrameID = 0;
+
+        kw.clock = new THREE.Clock();
+
+        kw.map = new kw.Map();
+
+        kw.cameraHandler = new kw.CameraHandler();
+        kw.MapLoader.loadMap("test0" + kw.levelCounter + ".json", kw.play);
+    }
+};

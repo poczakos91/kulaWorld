@@ -1,16 +1,17 @@
 
 kw.CameraAnimationHandler = function(camera) {
-    this.camera = camera;
+    this.camHandler = camera;
 
     //attributes to moveAnimation
     this.from = new THREE.Vector3();
     this.to = new THREE.Vector3();
-    this.distance = new THREE.Vector3();
-    this.moveWeight = 0;
+    this.velocity = new THREE.Vector3();
+    this.fullPath = new THREE.Vector3();
+    this.pathDone = 0;
     this.upFrom = new THREE.Vector3();
     this.upTo = new THREE.Vector3();
     this.upDistance = new THREE.Vector3();
-    this.moveAnimationEnabled = false;
+    this.moveAnimationActive = false;
 
     //attributes to rotateAnimation
     this.angle = 0;
@@ -20,49 +21,9 @@ kw.CameraAnimationHandler = function(camera) {
     this.rotWeight = 0;
     this.rotateAnimationActive = false;
 };
-/*
-kw.CameraAnimationHandler.prototype.startAnimation = function(to) {
-    this.from = this.camera.position.clone();
-    this.to = to.clone();
-    this.cameraAnimationEnabled = true;
-    this.weight = 0;
-    this.distance.subVectors(this.to,this.from);
-};*/
-/*
-kw.CameraAnimationHandler.prototype.update = function(delta) {
-    if(this.cameraAnimationEnabled) {
-        this.weight += delta*4;
-        if(this.weight < 1) {
-            this.camera.position = this.from.clone().add(this.distance.clone().multiplyScalar(this.weight));
-            this.camera.up = this.camera.position.clone()
-                .sub(this.ballView.position)
-                .normalize()
-                .cross(this.direction.getBallRollRotationAxis());
-            this.camera.lookAt(this.ballView.position);
-        }
-        else {
-            this.camera.position = this.to;
-            this.camera.lookAt(this.ballView.position);
-            this.cameraAnimationEnabled = false;
-        }
-        return true;
-    }
-    else {
-        return false;
-    }
-};*/
-
 
 kw.CameraAnimationHandler.prototype.updateMove = function(delta) {
-    if(this.moveAnimationEnabled) {
-        //TODO camera move animation and delete this shit below
-   /*     this.camera.moveTo(this.to,this.upTo);
-        this.moveAnimationEnabled = false;*/
-
-
-
-
-
+    /*if(this.moveAnimationEnabled) {
         delta *= 4;
         if(this.moveWeight+delta < 1) {
             this.moveWeight += delta;
@@ -75,42 +36,48 @@ kw.CameraAnimationHandler.prototype.updateMove = function(delta) {
             this.camera.moveTo(this.to,this.upTo);
             this.moveAnimationEnabled = false;
         }
+    }*/
 
 
 
 
+    if(this.moveAnimationActive) {
+        if(this.pathDone + this.velocity.velocityLength*delta < this.fullPath.pathLength) {
+            this.pathDone += this.velocity.velocityLength*delta;
+            this.camHandler.camera.position.add(this.velocity.clone().multiplyScalar(delta));
+            this.camHandler.camera.up = this.upFrom.clone().add(this.upDistance.clone().multiplyScalar(this.pathDone/this.fullPath.pathLength));
+            this.camHandler.camera.lookAt(this.camHandler.ballView.position);
+        }
+        else {
+            var newDelta = (this.pathDone-this.fullPath.pathLength)/this.velocity.velocityLength+delta;
+            this.camHandler.camera.position.add(this.velocity.clone().multiplyScalar(delta - newDelta));
+            this.camHandler.camera.up = this.upTo.clone();
+            this.camHandler.camera.lookAt(this.camHandler.ballView.position);
+            this.moveAnimationActive = false;
+        }
     }
+
+
+
+
 };
 
 kw.CameraAnimationHandler.prototype.updateRotation = function(delta) {
     if(this.rotateAnimationActive) {
-        //TODO camera rotate animation
-       /* var pos = this.ballPosition.clone().add(kw.tools.changeXComponentInVector(this.direction).multiplyScalar(-1).applyAxisAngle(this.face,this.angle).add(this.face));
-        this.rotateAnimationActive = false;
-        this.camera.moveTo(pos);*/
-
-
-
-
-
         delta *= 2;
         if(this.rotWeight+delta < 1) {
             this.rotWeight+=delta;
-            var pos = this.ballPosition.clone().add(kw.tools.changeXComponentInVector(this.direction).multiplyScalar(-3).applyAxisAngle(kw.tools.changeXComponentInVector(this.face),this.angle*this.rotWeight).add(kw.tools.changeXComponentInVector(this.face).clone().multiplyScalar(2)));
-            this.camera.moveTo(pos);
+            var pos = this.ballPosition.clone().add(kw.tools.changeXComponentInVector(this.direction).multiplyScalar(-4).applyAxisAngle(kw.tools.changeXComponentInVector(this.face),this.angle*this.rotWeight).add(kw.tools.changeXComponentInVector(this.face).clone().multiplyScalar(4)));
+            this.camHandler.camera.position = pos;
+            this.camHandler.camera.lookAt(this.camHandler.ballView.position);
         }
         else {
             this.rotWeight = 1;
-            var pos = this.ballPosition.clone().add(kw.tools.changeXComponentInVector(this.direction).multiplyScalar(-3).applyAxisAngle(kw.tools.changeXComponentInVector(this.face),this.angle*this.rotWeight).add(kw.tools.changeXComponentInVector(this.face).clone().multiplyScalar(2)));
-            this.camera.moveTo(pos);
+            var pos = this.ballPosition.clone().add(kw.tools.changeXComponentInVector(this.direction).multiplyScalar(-4).applyAxisAngle(kw.tools.changeXComponentInVector(this.face),this.angle*this.rotWeight).add(kw.tools.changeXComponentInVector(this.face).clone().multiplyScalar(4)));
+            this.camHandler.camera.position = pos;
+            this.camHandler.camera.lookAt(this.camHandler.ballView.position);
             this.rotateAnimationActive = false;
             kw.keyHandler.rotateAnimationDone();
         }
-
-
-
-
-
-
     }
 };

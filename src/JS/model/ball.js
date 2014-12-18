@@ -47,7 +47,8 @@ kw.Ball = function(startingCube,startingFace,direction,map,camera,color,opt_text
 };
 
 kw.Ball.prototype.move = function() {
-        if(!this.ballView.ballAnimation.moveAnimationActive && !this.ballView.ballAnimation.rotateAnimationActive) {
+        if(!this.ballView.isAnimationActive()) {
+            //console.log("NEW MOVE STARTED");
             var oldDirection = this.direction.getActualDirection();
             var newCube = this.actCube.moveRequest(this.actFace, oldDirection, []);
             if (newCube !== null) {
@@ -69,30 +70,55 @@ kw.Ball.prototype.move = function() {
 };
 
 kw.Ball.prototype.rotate = function(angle) {
-    var oldDirection = this.direction.getActualDirection();
-    var oldRollRotAxis = this.direction.getRollRotAxis();
-    this.direction.rotateDirection(angle);
-    this.direction.calculateRollRotationAxis();
-    var settings = this.createSettings(oldDirection,null,null,oldRollRotAxis);
+    if(!this.ballView.isAnimationActive()) {
+        var oldDirection = this.direction.getActualDirection();
+        var oldRollRotAxis = this.direction.getRollRotAxis();
+        this.direction.rotateDirection(angle);
+        this.direction.calculateRollRotationAxis();
+        var settings = this.createSettings(oldDirection, null, null, oldRollRotAxis);
 
-    this.ballView.startRotate(settings,angle);
-    this.camera.startRotate(settings,angle );
+        this.ballView.startRotate(settings, angle);
+        this.camera.startRotate(settings, angle);
+    }
 };
 
 kw.Ball.prototype.switchCamera = function() {
-    if (!this.camera.trackballControl.enabled) {
-        this.camera.trackballControl.enabled = true;
-        this.camera.changeToTrackBallControl();
-    } else {
-        this.camera.trackballControl.enabled = false;
-        var settings = this.createSettings(null, null, null, null);
-        this.camera.changeToFirstPersonControl(settings);
+    if(!this.ballView.isAnimationActive()) {
+        if (!this.camera.trackballControl.enabled) {
+            this.camera.trackballControl.enabled = true;
+            this.camera.changeToTrackBallControl();
+        } else {
+            this.camera.trackballControl.enabled = false;
+            var settings = this.createSettings(null, null, null, null);
+            this.camera.changeToFirstPersonControl(settings);
+        }
     }
 };
 
 kw.Ball.prototype.update = function(delta) {
-    this.ballView.update(delta);
-    this.camera.update(delta);
+    kw.prevBallPosition = this.ballView.position.clone();
+
+    for(var i=0;i<delta;i+=kw.dt) {
+        if(i + kw.dt < delta) {
+            this.ballView.update(kw.dt);
+            this.camera.update(kw.dt);
+        }
+        else {
+            this.ballView.update(delta-i);
+            this.camera.update(delta-i);
+        }
+        kw.renderer.render(kw.scene, kw.cameraHandler.camera);
+    }
+/*
+    if(this.ballView.isAnimationActive()) {
+        kw.prevBallPosition.sub(this.ballView.position);
+        console.log(kw.prevBallPosition.x + " " + kw.prevBallPosition.y + " " + kw.prevBallPosition.z);
+        console.log(this.ballView.ballAnimation.moveWeight);
+        console.log("act POS: "+this.ballView.position.x+" "+this.ballView.position.y+" "+this.ballView.position.z);
+        console.log("-------------------------------");
+    }
+*/
+    //this.camera.update(delta);
 };
 
 /**

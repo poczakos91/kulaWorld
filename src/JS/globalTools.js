@@ -92,3 +92,9 @@ kw.tools.changeXComponentInVector = function(vector) {
     vec.x = vec.x * (-1);
     return vec;
 };
+
+//the refreshing rate of the game
+kw.dt = 0.05;
+
+//the speed of the ball and camera
+kw.speed = 4;

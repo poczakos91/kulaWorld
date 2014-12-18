@@ -69,19 +69,47 @@ kw.CameraHandler.prototype.rotationChanged = function(angle) {
 };*/
 
 kw.CameraHandler.prototype.startMove = function (settings) {
-    this.firstPersonAnimation.from = this.camera.position.clone();
+/*    this.firstPersonAnimation.from = this.camera.position.clone();
     if (settings.faceFrom.equals(settings.faceTo)) {
-        this.firstPersonAnimation.to = settings.ballPosFrom.clone().add(kw.tools.changeXComponentInVector(settings.faceFrom).clone().multiplyScalar(2)).sub(kw.tools.changeXComponentInVector(settings.ballDirFrom).clone().multiplyScalar(2));
+        this.firstPersonAnimation.to = settings.ballPosFrom.clone().add(kw.tools.changeXComponentInVector(settings.faceFrom).clone().multiplyScalar(4)).sub(kw.tools.changeXComponentInVector(settings.ballDirFrom).clone().multiplyScalar(4));
     }
     else {
-        this.firstPersonAnimation.to = settings.ballPosFrom.clone().add(kw.tools.changeXComponentInVector(settings.faceFrom).clone().multiplyScalar(2)).add(kw.tools.changeXComponentInVector(settings.faceTo).clone().multiplyScalar(2));
+        this.firstPersonAnimation.to = settings.ballPosFrom.clone().add(kw.tools.changeXComponentInVector(settings.faceFrom).clone().multiplyScalar(4)).add(kw.tools.changeXComponentInVector(settings.faceTo).clone().multiplyScalar(4));
     }
     this.firstPersonAnimation.distance.subVectors(this.firstPersonAnimation.to, this.firstPersonAnimation.from);
     this.firstPersonAnimation.moveWeight = 0;
     this.firstPersonAnimation.upFrom = kw.tools.changeXComponentInVector(settings.faceFrom);
     this.firstPersonAnimation.upTo = kw.tools.changeXComponentInVector(settings.faceTo);
     this.firstPersonAnimation.upDistance.subVectors(this.firstPersonAnimation.upTo, this.firstPersonAnimation.upFrom);
-    this.firstPersonAnimation.moveAnimationEnabled = true;
+    this.firstPersonAnimation.moveAnimationEnabled = true;*/
+
+
+    this.firstPersonAnimation.from = this.camera.position.clone();
+    if (settings.faceFrom.equals(settings.faceTo)) {
+        this.firstPersonAnimation.to = settings.ballPosTo.clone().add(kw.tools.changeXComponentInVector(settings.faceFrom).clone().multiplyScalar(3)).sub(kw.tools.changeXComponentInVector(settings.ballDirFrom).clone().multiplyScalar(3));
+    }
+    else {
+        this.firstPersonAnimation.to = settings.ballPosFrom.clone().add(kw.tools.changeXComponentInVector(settings.faceFrom).clone().multiplyScalar(3)).add(kw.tools.changeXComponentInVector(settings.faceTo).clone().multiplyScalar(3));
+    }
+    this.firstPersonAnimation.velocity.subVectors(this.firstPersonAnimation.to, this.firstPersonAnimation.from);
+    var duration = this.ballView.ballAnimation.path1.pathLength/this.ballView.ballAnimation.velocity1.velocityLength + this.ballView.ballAnimation.path2.pathLength/this.ballView.ballAnimation.velocity2.velocityLength;
+    this.firstPersonAnimation.velocity.multiplyScalar(1/duration);
+    this.firstPersonAnimation.velocity.velocityLength = this.firstPersonAnimation.velocity.length();
+
+    this.firstPersonAnimation.fullPath.subVectors(this.firstPersonAnimation.to, this.firstPersonAnimation.from);
+    this.firstPersonAnimation.fullPath.pathLength = this.firstPersonAnimation.fullPath.length();
+
+    this.firstPersonAnimation.pathDone = 0;
+
+    var crossVec = new THREE.Vector3();
+    crossVec.crossVectors(settings.faceFrom,settings.faceTo);
+    this.firstPersonAnimation.upFrom = kw.tools.changeXComponentInVector(settings.faceFrom);
+    this.firstPersonAnimation.upTo = kw.tools.changeXComponentInVector(settings.faceTo);
+    this.firstPersonAnimation.upDistance.subVectors(this.firstPersonAnimation.upTo, this.firstPersonAnimation.upFrom);
+    this.firstPersonAnimation.moveAnimationActive = true;
+
+
+
 };
 
 kw.CameraHandler.prototype.startRotate = function (settings,angle) {
@@ -122,16 +150,16 @@ kw.CameraHandler.prototype.changeToTrackBallControl = function(opt_pos) {
 };
 
 kw.CameraHandler.prototype.changeToFirstPersonControl = function (settings) {
-    var pos = settings.ballPos.sub(kw.tools.changeXComponentInVector(settings.ballDir).multiplyScalar(2)).add(kw.tools.invertedFaceMap[settings.faceString].clone().multiplyScalar(2));
+    var pos = settings.ballPos.sub(kw.tools.changeXComponentInVector(settings.ballDir).multiplyScalar(4)).add(kw.tools.invertedFaceMap[settings.faceString].clone().multiplyScalar(4));
     this.camera.position.set(pos.x,pos.y,pos.z);
     this.camera.up = kw.tools.changeXComponentInVector(settings.face);
     this.camera.lookAt(this.ballView.position);
 };
-
+/*
 kw.CameraHandler.prototype.moveTo = function(to, opt_up) {
-    this.camera.position.set(to.x,to.y,to.z);
+    this.camera.position.add(to);
     if(opt_up) {
         this.camera.up = opt_up;
     }
     this.camera.lookAt(this.ballView.position);
-};
+};*/
