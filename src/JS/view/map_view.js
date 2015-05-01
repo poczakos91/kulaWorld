@@ -18,4 +18,4 @@ kw.MapView.prototype.appendChildrenFromModels = function(cubeModels) {
 
 kw.MapView.prototype.setOffset = function(offset) {
     this.position.set(offset.x,offset.y,offset.z);
-}
+};

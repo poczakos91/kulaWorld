@@ -21,7 +21,7 @@ kw.AnimationHandler.prototype.startMoveAnimation = function(from, to) {
     this.from = from.clone();
     this.to = to.clone();
 
-    //if 2 dimensions of fromt and to equals than the move is straight, no need for breakpoint
+    //if 2 dimensions of 'from' and 'to' equals than the move is straight, no need for breakpoint
     var dimensionEqualityCounter = 0;
     for(var i=0;i<3;i++) {
         if(from.getComponent(i) == to.getComponent(i)) {
@@ -35,7 +35,7 @@ kw.AnimationHandler.prototype.startMoveAnimation = function(from, to) {
     }
     else {
         var dirTemp = kw.tools.directionMap[this.direction.getActualDirection()].clone();
-        for(var i=0;i<3;i++) {
+        for(i=0;i<3;i++) {
             if(dirTemp.getComponent(i) == 1 || dirTemp.getComponent(i) == -1) {
                 this.breakPoint.setComponent(i,this.to.getComponent(i));
             }

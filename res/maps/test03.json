@@ -24,7 +24,7 @@
     "startingCube": 0,
     "startingFace": "top",
     "startingDirection": "forward",
-    "color": "#002366",
+    "color": "0x002366",
     "texture": {
       "colorMapURL": "res/img/BasketballColor.jpg"
     }
@@ -36,7 +36,7 @@
           "id": 0,
           "type": "cuboid",
           "specials": [],
-          "color": "#ffffff",
+          "color": "0xffffff",
           "position": {
             "x": 0,
             "y": 0,
@@ -107,7 +107,7 @@
           "id": 1,
           "type": "cuboid",
           "specials": [],
-          "color": "#ffffff",
+          "color": "0xffffff",
           "position": {
             "x": 1,
             "y": 0,
@@ -164,7 +164,7 @@
           "id": 2,
           "type": "cuboid",
           "specials": [],
-          "color": "#ffffff",
+          "color": "0xffffff",
           "position": {
             "x": 2,
             "y": 0,
@@ -221,7 +221,7 @@
           "id": 3,
           "type": "cuboid",
           "specials": [],
-          "color": "#ffffff",
+          "color": "0xffffff",
           "position": {
             "x": 3,
             "y": 0,
@@ -276,7 +276,7 @@
           "id": 13,
           "type": "cuboid",
           "specials": [],
-          "color": "#ffffff",
+          "color": "0xffffff",
           "position": {
             "x": 3,
             "y": 1,
@@ -377,7 +377,7 @@
           "id": 4,
           "type": "cuboid",
           "specials": [],
-          "color": "#ffffff",
+          "color": "0xffffff",
           "position": {
             "x": 0,
             "y": 0,
@@ -440,7 +440,7 @@
           "id": 5,
           "type": "cuboid",
           "specials": [],
-          "color": "#ffffff",
+          "color": "0xffffff",
           "position": {
             "x": 3,
             "y": 0,
@@ -499,7 +499,7 @@
           "id": 6,
           "type": "cuboid",
           "specials": [],
-          "color": "#ffffff",
+          "color": "0xffffff",
           "position": {
             "x": 0,
             "y": 0,
@@ -562,7 +562,7 @@
           "id": 7,
           "type": "cuboid",
           "specials": [],
-          "color": "#ffffff",
+          "color": "0xffffff",
           "position": {
             "x": 3,
             "y": 0,
@@ -621,7 +621,7 @@
           "id": 8,
           "type": "cuboid",
           "specials": [],
-          "color": "#ffffff",
+          "color": "0xffffff",
           "position": {
             "x": 0,
             "y": 0,
@@ -676,7 +676,7 @@
           "id": 12,
           "type": "cuboid",
           "specials": [],
-          "color": "#ffffff",
+          "color": "0xffffff",
           "position": {
             "x": 0,
             "y": -1,
@@ -775,7 +775,7 @@
           "id": 9,
           "type": "cuboid",
           "specials": [],
-          "color": "#ffffff",
+          "color": "0xffffff",
           "position": {
             "x": 1,
             "y": 0,
@@ -832,7 +832,7 @@
           "id": 10,
           "type": "cuboid",
           "specials": [],
-          "color": "#ffffff",
+          "color": "0xffffff",
           "position": {
             "x": 2,
             "y": 0,
@@ -889,7 +889,7 @@
           "id": 11,
           "type": "cuboid",
           "specials": [],
-          "color": "#ffffff",
+          "color": "0xffffff",
           "position": {
             "x": 3,
             "y": 0,

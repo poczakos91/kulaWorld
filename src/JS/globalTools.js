@@ -44,7 +44,7 @@ kw.tools.getFaceFromVector = function(vector) {
 };
 
 /**
- * Creates the direction string form of a vector
+ * Creates the direction string form a vector
  * @param vector {THREE.Vector3}
  */
 kw.tools.getDirectionFromVector = function (vector) {

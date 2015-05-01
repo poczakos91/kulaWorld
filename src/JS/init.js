@@ -6,7 +6,9 @@ kw.init = function() {
     // create a scene, that will hold all our elements such as objects, cameras and lights.
     kw.scene = new THREE.Scene();
 
-
+    var numAsString = "0xffffff";
+    var numAsNumber = parseInt(numAsString,16);
+    console.log(numAsNumber);
 
     // create a render and set the size
     kw.renderer = new THREE.WebGLRenderer();
